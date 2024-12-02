@@ -1,0 +1,53 @@
+type Event {
+  id: ID
+  ownerId: String
+  startDate: String!
+  endDate: String
+  lastModifiedDate: String
+  createdDate: String
+  name: String!
+  description: String
+  eventStatus : EventStatus
+}
+
+input EventInput {
+  id: String
+  ownerId: String
+  startDate: String
+  endDate: String
+  lastModifiedDate: String
+  createdDate: String
+  name: String!
+  description: String
+  eventStatus : EventStatus
+}
+
+fragment FullEvent on Event{
+  id
+  ownerId
+  name
+  description
+  startDate
+  endDate
+  createdDate
+  lastModifiedDate
+  eventStatus
+}
+
+type Mutation {
+createEvent(input: EventInput!): Event!
+updateEvent(eventId: String!, input: EventInput!): Event!
+}
+
+type Query {
+eventsByOwnerId(ownerId: String!): [Event!]!
+eventById(id: String!): Event
+}
+
+
+enum EventStatus{
+  SCHEDULED
+  IN_PROGRESS
+  TERMINATED
+  CANCELLED
+}

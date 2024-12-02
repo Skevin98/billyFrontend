@@ -1,0 +1,33 @@
+<h3>Créér un évenement</h3>
+
+<div>
+  <form [formGroup]="eventFormGroup" class="form">
+
+    <!--    name-->
+    <div class="field">
+      <label for="name">Nom de l'évènement</label>
+      <input type="text" name="name" id="name" formControlName="name">
+    </div>
+
+    <!--    description-->
+    <div class="field">
+      <label for="description">Description</label>
+      <input type="text" name="description" id="description" formControlName="description">
+    </div>
+
+    <!--    start date-->
+    <div class="field">
+      <label for="startdate">Date de début</label>
+      <input type="datetime-local" name="" id="startdate" formControlName="startDate">
+    </div>
+
+    <!--    end date-->
+    <div class="field">
+      <label for="enddate">Date de fin</label>
+      <input type="datetime-local" name="enddate" id="enddate" formControlName="endDate">
+    </div>
+
+    <button type="button" (click)="onUpsertEvent()">{{ !!eventFormGroup.value.id ? 'Modifier' : 'Créer' }}</button>
+    <button type="button" routerLink="/events">Annuler</button>
+  </form>
+</div>
