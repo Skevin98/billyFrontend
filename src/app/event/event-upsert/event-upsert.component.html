@@ -31,3 +31,9 @@
     <button type="button" routerLink="/events">Annuler</button>
   </form>
 </div>
+@if (eventFormGroup.value.id){
+  <div>
+    <app-ticket-list [ticketTypes]="foundEvent?.ticketTypes"></app-ticket-list>
+  </div>
+}
+

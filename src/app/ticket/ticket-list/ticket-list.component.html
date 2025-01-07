@@ -1,0 +1,45 @@
+<h4>Types de tickets</h4>
+@if (ticketTypes){
+  <table>
+    <thead>
+    <tr>
+      <th>
+        N°
+      </th>
+      <th>
+        Titre
+      </th>
+      <th>
+        Prix
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+      <td colspan="4">
+        <button [routerLink]="['tickets']" >Ajouter</button>
+      </td>
+    </tr>
+    </tfoot>
+    <tbody>
+      @for (type of ticketTypes; track $index) {
+        <tr>
+          <td> {{$index + 1}} </td>
+          <td> {{type.title}} </td>
+          <td> {{type.price}} </td>
+          <td>
+            <button [routerLink]="['tickets',type.id]">Modifier</button>
+            <button>Supprimer</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <p>Aucun ticket configuré pour cet évènement</p>
+  <button [routerLink]="['tickets']">Ajouter un type</button>
+}
+

@@ -33,6 +33,11 @@ export class EventListComponent implements OnInit {
         createdDate
         lastModifiedDate
         eventStatus
+        ticketTypes{
+          id
+          title
+          price
+        }
       }
   }`
 

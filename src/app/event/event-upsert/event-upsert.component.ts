@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 
 import {EventService} from '../service/event.service';
-import {EventInput, Event, EventStatus} from '../../models/models';
+import {Event, EventInput, EventStatus} from '../../models/models';
 import {gql} from '@apollo/client/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
+import {TicketListComponent} from '../../ticket/ticket-list/ticket-list.component';
 
 @Component({
   selector: 'app-event-upsert',
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, TicketListComponent],
   templateUrl: './event-upsert.component.html',
   styleUrl: './event-upsert.component.scss'
 })
@@ -51,19 +52,21 @@ export class EventUpsertComponent implements OnInit {
     eventStatus : new FormControl(EventStatus.SCHEDULED)
   })
 
+  foundEvent? : Event;
+
 
   constructor(private eventService: EventService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
-    let foundEvent = this.eventService.eventList.find(x => x.id == id);
-    if (foundEvent?.id) {
-      const startDate = foundEvent.startDate.substring(0, 16);
-      const endDate = foundEvent.endDate?.substring(0, 16);
+    this.foundEvent = this.eventService.eventList.find(x => x.id == id);
+    if (this.foundEvent?.id) {
+      const startDate = this.foundEvent.startDate.substring(0, 16);
+      const endDate = this.foundEvent.endDate?.substring(0, 16);
 
       let eventToUpdate = {
-        ...foundEvent,
+        ...this.foundEvent,
         startDate: startDate,
         endDate: endDate,
       }

@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {EventListComponent} from './event-list/event-list.component';
 import {EventUpsertComponent} from './event-upsert/event-upsert.component';
 import {RouterModule} from '@angular/router';
 import {eventRoutes} from './event.routes';
-
 
 
 @NgModule({
@@ -17,8 +16,7 @@ import {eventRoutes} from './event.routes';
   ],
   exports: [
     EventListComponent,
-    EventUpsertComponent,
-    RouterModule
+    EventUpsertComponent
   ]
 })
 export class EventModule { }

@@ -8,6 +8,7 @@ type Event {
   name: String!
   description: String
   eventStatus : EventStatus
+  ticketTypes : [TicketType]
 }
 
 input EventInput {
@@ -32,16 +33,50 @@ fragment FullEvent on Event{
   createdDate
   lastModifiedDate
   eventStatus
+  ticketTypes{
+    id
+    price
+    title
+  }
+}
+
+type TicketType {
+  id : String!
+  price : Float!
+  title : String!
+  description : String
+  lastModifiedDate : String
+  createdDate : String
+}
+
+input TicketTypeInput {
+  id : String
+  price : Float!
+  title : String!
+  description : String
+  lastModifiedDate : String
+  createdDate : String
+}
+
+fragment FullTicketType on TicketType{
+  id
+  price
+  title
+  description
+  lastModifiedDate
+  createdDate
 }
 
 type Mutation {
-createEvent(input: EventInput!): Event!
-updateEvent(eventId: String!, input: EventInput!): Event!
+  createEvent(input: EventInput!): Event!
+  updateEvent(eventId: String!, input: EventInput!): Event!
 }
 
 type Query {
-eventsByOwnerId(ownerId: String!): [Event!]!
-eventById(id: String!): Event
+  eventsByOwnerId(ownerId: String!): [Event!]!
+  eventById(id: String!): Event
+  ticketsByEventId(eventId : String!) : TicketType!
+  ticketsByEventIdAndTicketId(eventId : String!, typeId : String!, Input : TicketTypeInput!) : TicketType
 }
 
 
