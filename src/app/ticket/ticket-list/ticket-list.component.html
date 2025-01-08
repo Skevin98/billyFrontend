@@ -31,7 +31,7 @@
           <td> {{type.title}} </td>
           <td> {{type.price}} </td>
           <td>
-            <button [routerLink]="['tickets',type.id]">Modifier</button>
+            <button (click)="goToUpsertTicketType(type)">Modifier</button>
             <button>Supprimer</button>
           </td>
         </tr>

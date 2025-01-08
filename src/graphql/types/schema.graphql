@@ -70,6 +70,8 @@ fragment FullTicketType on TicketType{
 type Mutation {
   createEvent(input: EventInput!): Event!
   updateEvent(eventId: String!, input: EventInput!): Event!
+  createTicketType(eventId: String!, input: TicketTypeInput!) : TicketType!
+  updateTicketType(eventId: String!,typeId: String!, input: TicketTypeInput!) : TicketType!
 }
 
 type Query {

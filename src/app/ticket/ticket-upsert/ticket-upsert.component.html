@@ -1,4 +1,29 @@
 <h3>Créer un ticket</h3>
 
+<div>
+  <form [formGroup]="ticketTypeFormGroup" class="form">
 
-<p>Bonjour</p>
+    <!--    title-->
+    <div class="field">
+      <label for="title">Titre</label>
+      <input type="text" name="title" id="title" formControlName="title">
+    </div>
+
+    <!--    description-->
+    <div class="field">
+      <label for="description">Description</label>
+      <input type="text" name="description" id="description" formControlName="description">
+    </div>
+
+    <!--    description-->
+    <div class="field">
+      <label for="price">Prix</label>
+      <input type="number" name="price" id="price" formControlName="price">
+    </div>
+
+    <div></div>
+
+    <button type="button" (click)="onUpsertEvent()">{{ !!ticketTypeFormGroup.value.id ? 'Modifier' : 'Créer' }}</button>
+    <button type="button" routerLink="..">Annuler</button>
+  </form>
+</div>

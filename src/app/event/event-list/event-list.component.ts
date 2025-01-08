@@ -37,6 +37,7 @@ export class EventListComponent implements OnInit {
           id
           title
           price
+          description
         }
       }
   }`

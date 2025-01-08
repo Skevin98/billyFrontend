@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {TicketType} from '../../models/models';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-ticket-list',
@@ -12,6 +12,17 @@ import {RouterLink} from '@angular/router';
 })
 export class TicketListComponent {
 
-  @Input() ticketTypes? : TicketType[] = []
+  @Input() ticketTypes?: TicketType[] = []
 
+  constructor(private router: Router, private route: ActivatedRoute,) {
+  }
+
+  goToUpsertTicketType(type: TicketType) {
+    this.router.navigate(['tickets', type.id], {
+      relativeTo: this.route,
+      state: {
+        type: type
+      }
+    });
+  }
 }
