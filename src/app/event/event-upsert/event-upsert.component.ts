@@ -14,6 +14,28 @@ import {TicketListComponent} from '../../ticket/ticket-list/ticket-list.componen
   styleUrl: './event-upsert.component.scss'
 })
 export class EventUpsertComponent implements OnInit {
+
+  eventByIdQuery = gql`
+    query eventById($id: String!){
+      eventById(id: $id){
+        id
+        ownerId
+        name
+        description
+        startDate
+        endDate
+        createdDate
+        lastModifiedDate
+        eventStatus
+        ticketTypes{
+          id
+          title
+          price
+          description
+        }
+      }
+    }`
+
   createMutation = gql`
     mutation createEvent($input : EventInput!){
       createEvent(input: $input){
@@ -61,18 +83,11 @@ export class EventUpsertComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
     this.foundEvent = this.eventService.eventList.find(x => x.id == id);
-    if (this.foundEvent?.id) {
-      const startDate = this.foundEvent.startDate.substring(0, 16);
-      const endDate = this.foundEvent.endDate?.substring(0, 16);
+    if (!!this.foundEvent) {
+      this.resetEventForm();
 
-      let eventToUpdate = {
-        ...this.foundEvent,
-        startDate: startDate,
-        endDate: endDate,
-      }
-
-      console.log(eventToUpdate);
-      this.eventFormGroup.reset(eventToUpdate);
+    } else {
+      this.getEventById(id);
     }
   }
 
@@ -126,5 +141,37 @@ export class EventUpsertComponent implements OnInit {
           console.log(err);
         }
       });
+  }
+
+  private getEventById(id: string) {
+    this.eventService.query(this.eventByIdQuery, {id : id}).subscribe(
+      {
+        next: event => {
+          if (event.errors && event.errors.length > 0) {
+            console.log(event.errors[0].message);
+            throw new Error(event.errors[0].message);
+          }
+          console.log(event.data.eventById);
+          this.foundEvent = event.data.eventById;
+          this.resetEventForm();
+        },
+        error: err => {
+          console.log(err);
+        }
+
+      }
+    )
+  }
+
+  private resetEventForm() {
+    const startDate = this.foundEvent!.startDate.substring(0, 16);
+    const endDate = this.foundEvent!.endDate?.substring(0, 16);
+
+    let eventToUpdate = {
+      ...this.foundEvent,
+      startDate: startDate,
+      endDate: endDate,
+    }
+    this.eventFormGroup.reset(eventToUpdate);
   }
 }

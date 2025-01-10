@@ -24,11 +24,11 @@ export class EventService {
     this.client = apolloService.getClient();
   }
 
-  query(query: DocumentNode, ownerId: string) {
+  query(query: DocumentNode, variables: Object) {
     return from(
       this.client.query({
         query: query,
-        variables: {ownerId: ownerId}
+        variables: variables
       })
     );
   }

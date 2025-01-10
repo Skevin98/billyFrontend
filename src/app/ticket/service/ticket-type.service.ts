@@ -14,6 +14,15 @@ export class TicketTypeService {
     this.client = apolloService.getClient();
   }
 
+  query(query: DocumentNode, variables: Object) {
+    return from(
+      this.client.query({
+        query: query,
+        variables: variables
+      })
+    );
+  }
+
   mutate(mutation: DocumentNode, variables: Object) {
     return from(
       this.client.mutate({

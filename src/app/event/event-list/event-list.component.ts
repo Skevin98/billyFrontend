@@ -42,7 +42,7 @@ export class EventListComponent implements OnInit {
       }
   }`
 
-  constructor(private eventservice : EventService) {
+  constructor(private eventService : EventService) {
   }
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class EventListComponent implements OnInit {
     }
 
   getEventsByOwnerId(ownerByIdQuery : DocumentNode, ownerId : string){
-    this.eventservice.query(ownerByIdQuery, ownerId).subscribe(
+    this.eventService.query(ownerByIdQuery, {ownerId : ownerId}).subscribe(
       {
         next: event => {
           if (event.errors && event.errors.length > 0) {
@@ -59,7 +59,7 @@ export class EventListComponent implements OnInit {
           }
           this.eventList = event.data.eventsByOwnerId;
 
-          this.eventservice.eventList = this.eventList.filter(_=>true);
+          this.eventService.eventList = this.eventList.filter(_=>true);
           console.log(event.data.eventsByOwnerId);
         },
         error: err => {
