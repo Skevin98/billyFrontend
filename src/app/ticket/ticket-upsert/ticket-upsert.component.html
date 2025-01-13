@@ -24,6 +24,6 @@
     <div></div>
 
     <button type="button" (click)="onUpsertEvent()">{{ !!ticketTypeFormGroup.value.id ? 'Modifier' : 'Créer' }}</button>
-    <button type="button" routerLink="..">Annuler</button>
+    <button type="button" [routerLink]="!!ticketTypeFormGroup.value.id ? '../..': '..'">Annuler</button>
   </form>
 </div>

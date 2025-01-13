@@ -78,7 +78,7 @@ type Query {
   eventsByOwnerId(ownerId: String!): [Event!]!
   eventById(id: String!): Event
   ticketsByEventId(eventId : String!) : TicketType!
-  ticketsByEventIdAndTicketId(eventId : String!, typeId : String!, Input : TicketTypeInput!) : TicketType
+  ticketsByEventIdAndTicketId(eventId : String!, typeId : String!) : TicketType
 }
 
 

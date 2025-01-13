@@ -16,6 +16,16 @@ import {TicketTypeService} from '../service/ticket-type.service';
 })
 export class TicketUpsertComponent implements OnInit {
 
+  ticketsByEventIdAndTicketIdQuery = gql`
+    query ticketsByEventIdAndTicketId($typeId : String!, $eventId : String!){
+      ticketsByEventIdAndTicketId(typeId: $typeId,eventId: $eventId){
+        id
+        description
+        price
+        title
+      }
+    }`
+
   createMutation = gql`
     mutation createTicketType($eventId : String!,$input : TicketTypeInput!){
       createTicketType(eventId: $eventId, input: $input){
@@ -63,7 +73,13 @@ export class TicketUpsertComponent implements OnInit {
   ngOnInit(): void {
     this.eventId = this.route.snapshot.params['id'];
     this.typeId = this.route.snapshot.params['typeId'];
-    if (this.typeId){
+    if (!this.typeId){
+      return;
+    }
+    if (!this.type) {
+      this.getTicketTypeByEventIdAndTicketId(this.eventId, this.typeId);
+    }
+    else {
       this.ticketTypeFormGroup.reset(this.type)
     }
   }
@@ -126,4 +142,23 @@ export class TicketUpsertComponent implements OnInit {
   }
 
 
+  private getTicketTypeByEventIdAndTicketId(eventId: string, typeId: string) {
+    this.ticketTypeService.query(this.ticketsByEventIdAndTicketIdQuery, {eventId: eventId, typeId: typeId}).subscribe(
+      {
+        next: ticketType => {
+          if (ticketType.errors && ticketType.errors.length > 0) {
+            console.log(ticketType.errors[0].message);
+            throw new Error(ticketType.errors[0].message);
+          }
+          console.log(ticketType.data.ticketsByEventIdAndTicketId);
+          this.type = ticketType.data.ticketsByEventIdAndTicketId;
+          this.ticketTypeFormGroup.reset(this.type)
+        },
+        error: err => {
+          console.log(err);
+        }
+
+      }
+    )
+  }
 }
