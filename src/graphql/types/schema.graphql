@@ -41,7 +41,7 @@ fragment FullEvent on Event{
 }
 
 type TicketType {
-  id : String!
+  id : ID!
   price : Float!
   title : String!
   description : String
@@ -54,6 +54,31 @@ input TicketTypeInput {
   price : Float!
   title : String!
   description : String
+  lastModifiedDate : String
+  createdDate : String
+}
+
+type TicketEntity{
+  id: ID
+  eventId: String!
+  ticketTypeId : String!
+  Order : String
+  lastModifiedDate : String
+  createdDate : String
+}
+
+input TicketEntityInput{
+  id: String
+  eventId: String!
+  ticketTypeId : String!
+  Order : String
+  lastModifiedDate : String
+  createdDate : String
+}
+
+type UserEntity{
+  id : ID
+  TicketsPurchased : [TicketEntity]
   lastModifiedDate : String
   createdDate : String
 }
@@ -72,6 +97,8 @@ type Mutation {
   updateEvent(eventId: String!, input: EventInput!): Event!
   createTicketType(eventId: String!, input: TicketTypeInput!) : TicketType!
   updateTicketType(eventId: String!,typeId: String!, input: TicketTypeInput!) : TicketType!
+  createTicketEntity(userId: String!, input : TicketEntityInput!): TicketEntity!
+  updateTicketEntity(userId: String!, ticketId: String!, input : TicketEntityInput!): TicketEntity!
 }
 
 type Query {
@@ -79,6 +106,7 @@ type Query {
   eventById(id: String!): Event
   ticketsByEventId(eventId : String!) : TicketType!
   ticketsByEventIdAndTicketId(eventId : String!, typeId : String!) : TicketType
+  UserById(id : String!) : UserEntity
 }
 
 
