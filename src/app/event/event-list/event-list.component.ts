@@ -70,5 +70,4 @@ export class EventListComponent implements OnInit {
     )
   }
 
-  protected readonly FileReader = FileReader;
 }
