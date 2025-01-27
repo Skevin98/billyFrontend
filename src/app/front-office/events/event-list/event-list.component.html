@@ -1,6 +1,6 @@
 <h3>Mes évènements</h3>
 
-<button type="button" routerLink="upsert">Créer un évènement</button>
+<button type="button" routerLink="upsert">Les évènements en cours</button>
 
 <table>
   <thead>
@@ -14,7 +14,7 @@
   </tr>
   </thead>
   <tbody>
-    @for (event of eventList; track $index) {
+    @for (event of eventList; track event.id) {
       <tr>
         <td> {{ $index + 1 }}</td>
         <td> {{ event.name }}</td>
@@ -22,9 +22,20 @@
         <td> {{ event.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
         <td> {{ event.eventStatus }}</td>
         <td>
-          <button type="button" [routerLink]="['upsert', event.id]">Voir plus</button>
+
         </td>
       </tr>
+      @for (type of event.ticketTypes; track type.id){
+        <tr>
+          <td></td>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ type.title }}</td>
+          <td>{{ type.price }}</td>
+          <td>
+            <button type="button" [routerLink]="['ticket', event.id,'type', type.id]">Billy!</button>
+          </td>
+        </tr>
+      }
     }
   </tbody>
 </table>

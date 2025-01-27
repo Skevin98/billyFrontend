@@ -109,8 +109,9 @@ export class TicketUpsertComponent implements OnInit {
             console.log(event.errors[0].message);
             throw new Error(event.errors[0].message);
           }
-          const updatedEvent = event.data.updateEvent;
-          console.log(updatedEvent);
+          const updateTicketType = event.data.updateTicketType;
+          console.log(updateTicketType);
+          this.router.navigate(["../.."],{relativeTo : this.route});
         },
         error: err => {
           console.log(err);
@@ -131,8 +132,9 @@ export class TicketUpsertComponent implements OnInit {
               console.log(event.errors[0].message);
               throw new Error(event.errors[0].message);
             }
-            // const createdEvent = event.data.createEvent;
-            console.log(event);
+            const createTicketType = event.data.createTicketType;
+            console.log(createTicketType);
+            this.router.navigate([".."],{relativeTo : this.route});
           },
           error: err => {
             console.log(err);

@@ -71,7 +71,7 @@ input TicketEntityInput{
   id: String
   eventId: String!
   ticketTypeId : String!
-  Order : String
+  order : String!
   lastModifiedDate : String
   createdDate : String
 }
@@ -104,6 +104,7 @@ type Mutation {
 type Query {
   eventsByOwnerId(ownerId: String!): [Event!]!
   eventById(id: String!): Event
+  allEvents: [Event!]!
   ticketsByEventId(eventId : String!) : TicketType!
   ticketsByEventIdAndTicketId(eventId : String!, typeId : String!) : TicketType
   UserById(id : String!) : UserEntity

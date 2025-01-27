@@ -21,9 +21,9 @@ export class EventListComponent {
 
   eventList: Event[] = [];
 
-  eventsByOwnerIdQuery = gql`
-    query eventsByOwnerId($ownerId: String!){
-      eventsByOwnerId(ownerId: $ownerId){
+  allEventsQuery = gql`
+    query allEvents{
+      allEvents{
         id
         ownerId
         name
@@ -46,22 +46,21 @@ export class EventListComponent {
   }
 
   ngOnInit(): void {
-    this.getEventsByOwnerId( this.eventsByOwnerIdQuery ,this.ownerId);
+    this.getAll( this.allEventsQuery);
   }
 
-  // TODO replace with getAll
-  getEventsByOwnerId(ownerByIdQuery : DocumentNode, ownerId : string){
-    this.eventService.query(ownerByIdQuery, {ownerId : ownerId}).subscribe(
+  getAll(allEventsQuery : DocumentNode){
+    this.eventService.query(allEventsQuery).subscribe(
       {
         next: event => {
           if (event.errors && event.errors.length > 0) {
             console.log(event.errors[0].message);
             throw new Error(event.errors[0].message);
           }
-          this.eventList = event.data.eventsByOwnerId;
+          this.eventList = event.data.allEvents;
 
-          this.eventService.eventList = this.eventList.filter(_=>true);
-          console.log(event.data.eventsByOwnerId);
+          // this.eventService.eventList = this.eventList.filter(_=>true);
+          console.log(event.data.allEvents);
         },
         error: err => {
           console.log(err);

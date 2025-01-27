@@ -17,7 +17,7 @@ import {RouterLink} from '@angular/router';
 })
 export class EventListComponent implements OnInit {
 
-  ownerId: string = 'angular';
+  ownerId: string = 'owner';
 
   eventList: Event[] = [];
 

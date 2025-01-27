@@ -82,13 +82,13 @@ export class EventUpsertComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
-    this.foundEvent = this.eventService.eventList.find(x => x.id == id);
-    if (!!this.foundEvent) {
-      this.resetEventForm();
-
-    } else {
+    // this.foundEvent = this.eventService.eventList.find(x => x.id == id);
+    // if (!!this.foundEvent) {
+    //   this.resetEventForm();
+    //
+    // } else {
       this.getEventById(id);
-    }
+    // }
   }
 
   onUpsertEvent() {

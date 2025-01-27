@@ -24,11 +24,12 @@ export class EventService {
     this.client = apolloService.getClient();
   }
 
-  query(query: DocumentNode, variables: Object) {
+  query(query: DocumentNode, variables?: Object) {
     return from(
       this.client.query({
+        fetchPolicy : "no-cache",
         query: query,
-        variables: variables
+        variables: variables,
       })
     );
   }
