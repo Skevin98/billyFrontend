@@ -53,6 +53,15 @@ export interface TicketEntityInput{
   status?: TicketStatus
 }
 
+export interface UserEntity{
+  id?: String,
+  ticketsPurchased : TicketEntity[],
+  createdDate : string;
+  lastModifieddate? : string;
+
+
+}
+
 
 
 export enum EventStatus {

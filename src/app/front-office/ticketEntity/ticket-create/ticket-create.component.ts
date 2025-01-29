@@ -15,10 +15,11 @@ import {gql} from '@apollo/client/core';
   templateUrl: './ticket-create.component.html',
   styleUrl: './ticket-create.component.scss'
 })
-export class TicketCreateComponent implements OnInit{
+export class TicketCreateComponent implements OnInit {
 
-  eventId : string = "";
-  typeId : string = "";
+  eventId: string = "";
+  typeId: string = "";
+  userId: string = "6787f20c9a1a3e6163533ff3";
 
   createTicketEntityMutation = gql`
     mutation createTicketEntity($userId : String!, $input : TicketEntityInput!){
@@ -26,7 +27,7 @@ export class TicketCreateComponent implements OnInit{
         id
         eventId
         ticketTypeId
-        Order
+        order
         createdDate
         lastModifiedDate
       }
@@ -34,37 +35,42 @@ export class TicketCreateComponent implements OnInit{
 
   `
 
-  constructor(private route : ActivatedRoute, private router : Router,
-              private ticketService : TicketEntityService) {
+  constructor(private route: ActivatedRoute, private router: Router,
+              private ticketService: TicketEntityService) {
 
   }
 
   ngOnInit(): void {
-      this.eventId = this.route.snapshot.params["eventId"];
-      this.typeId = this.route.snapshot.params["typeId"];
-    }
+    this.eventId = this.route.snapshot.params["eventId"];
+    this.typeId = this.route.snapshot.params["typeId"];
+  }
 
   onCreateTicket() {
-    const payload : TicketEntityInput = {
+    const payload: TicketEntityInput = {
       eventId: this.eventId,
       ticketTypeId: this.typeId,
-      order : Math.random().toString()
+      order: Math.random().toString()
     };
     this.createTicket(payload);
   }
 
-  private createTicket(payload : TicketEntityInput) {
-    this.ticketService.mutate(this.createTicketEntityMutation,payload)
+  private createTicket(payload: TicketEntityInput) {
+    this.ticketService.mutate(this.createTicketEntityMutation,
+      {
+        userId: this.userId,
+        input: payload
+      })
       .subscribe({
-        next : event => {
+        next: event => {
           if (event.errors && event.errors.length > 0) {
             console.log(event.errors[0].message);
             throw new Error(event.errors[0].message);
           }
           const createdTicket = event.data.createTicketEntity;
           console.log(createdTicket);
+          this.router.navigate(["account",this.userId])
         },
-        error : err => console.log(err)
+        error: err => console.log(err)
       })
   }
 }

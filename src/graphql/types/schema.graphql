@@ -62,7 +62,7 @@ type TicketEntity{
   id: ID
   eventId: String!
   ticketTypeId : String!
-  Order : String
+  order : String
   lastModifiedDate : String
   createdDate : String
 }
@@ -78,7 +78,7 @@ input TicketEntityInput{
 
 type UserEntity{
   id : ID
-  TicketsPurchased : [TicketEntity]
+  ticketsPurchased : [TicketEntity]
   lastModifiedDate : String
   createdDate : String
 }
@@ -107,7 +107,7 @@ type Query {
   allEvents: [Event!]!
   ticketsByEventId(eventId : String!) : TicketType!
   ticketsByEventIdAndTicketId(eventId : String!, typeId : String!) : TicketType
-  UserById(id : String!) : UserEntity
+  userById(id : String!) : UserEntity
 }
 
 
