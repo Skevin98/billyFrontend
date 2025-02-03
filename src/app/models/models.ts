@@ -45,6 +45,12 @@ export interface TicketEntity{
   status: TicketStatus
 }
 
+export interface DisplayedTicketEntity extends TicketEntity{
+  eventName : String,
+  ticketTypeTitle : String,
+  price : number,
+}
+
 export interface TicketEntityInput{
   id?: string,
   eventId: string,

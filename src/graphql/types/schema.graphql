@@ -1,119 +1,264 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
 type Event {
   id: ID
   ownerId: String
-  startDate: String!
-  endDate: String
-  lastModifiedDate: String
-  createdDate: String
+  startDate: DateTime
+  endDate: DateTime
+  lastModifiedDate: DateTime
+  createdDate: DateTime
   name: String!
   description: String
-  eventStatus : EventStatus
-  ticketTypes : [TicketType]
+  eventStatus: EventStatus!
+  ticketTypes(where: TicketTypeFilterInput @cost(weight: "10")): [TicketType!]
+}
+
+type Mutation {
+  createEvent(input: EventInput!): Event! @cost(weight: "10")
+  updateEvent(eventId: String!, input: EventInput!): Event! @cost(weight: "10")
+  createTicketType(eventId: String!, input: TicketTypeInput!): TicketType!
+  @cost(weight: "10")
+  updateTicketType(
+    eventId: String!
+    typeId: String!
+    input: TicketTypeInput!
+  ): TicketType! @cost(weight: "10")
+  createTicketEntity(userId: String!, input: TicketEntityInput!): TicketEntity!
+  @cost(weight: "10")
+  updateTicketEntity(
+    userId: String!
+    ticketId: String!
+    input: TicketEntityInput!
+  ): TicketEntity! @cost(weight: "10")
+}
+
+type Query {
+  eventsByOwnerId(ownerId: String!): [Event!]! @cost(weight: "10")
+  eventById(id: String!, where: EventFilterInput @cost(weight: "10")): Event
+  @cost(weight: "10")
+  allEvents(where: EventFilterInput @cost(weight: "10")): [Event!]!
+  @cost(weight: "10")
+  ticketsByEventId(eventId: String!): [TicketType!]! @cost(weight: "10")
+  ticketsByEventIdAndTicketId(eventId: String!, typeId: String!): TicketType
+  @cost(weight: "10")
+  userById(id: String!): UserEntity @cost(weight: "10")
+}
+
+type TicketEntity {
+  id: ID!
+  eventId: String!
+  ticketTypeId: String!
+  order: String!
+  lastModifiedDate: DateTime
+  createdDate: DateTime
+  status: TicketStatus!
+}
+
+type TicketType {
+  id: ID
+  price: Float!
+  title: String!
+  description: String!
+  lastModifiedDate: DateTime
+  createdDate: DateTime
+  ticketsSold: Int!
+}
+
+type UserEntity {
+  id: ID
+  ticketsPurchased(
+    where: TicketEntityFilterInput @cost(weight: "10")
+  ): [TicketEntity!]!
+  lastModifiedDate: DateTime
+  createdDate: DateTime
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime @cost(weight: "10")
+  neq: DateTime @cost(weight: "10")
+  in: [DateTime] @cost(weight: "10")
+  nin: [DateTime] @cost(weight: "10")
+  gt: DateTime @cost(weight: "10")
+  ngt: DateTime @cost(weight: "10")
+  gte: DateTime @cost(weight: "10")
+  ngte: DateTime @cost(weight: "10")
+  lt: DateTime @cost(weight: "10")
+  nlt: DateTime @cost(weight: "10")
+  lte: DateTime @cost(weight: "10")
+  nlte: DateTime @cost(weight: "10")
+}
+
+input EventFilterInput {
+  and: [EventFilterInput!]
+  or: [EventFilterInput!]
+  id: StringOperationFilterInput
+  ownerId: StringOperationFilterInput
+  startDate: DateTimeOperationFilterInput
+  endDate: DateTimeOperationFilterInput
+  lastModifiedDate: DateTimeOperationFilterInput
+  createdDate: DateTimeOperationFilterInput
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  eventStatus: EventStatusOperationFilterInput
+  ticketTypes: ListFilterInputTypeOfTicketTypeFilterInput
 }
 
 input EventInput {
   id: String
   ownerId: String
-  startDate: String
-  endDate: String
-  lastModifiedDate: String
-  createdDate: String
+  startDate: DateTime
+  endDate: DateTime
+  lastModifiedDate: DateTime
+  createdDate: DateTime
   name: String!
   description: String
-  eventStatus : EventStatus
+  eventStatus: EventStatus!
 }
 
-fragment FullEvent on Event{
-  id
-  ownerId
-  name
-  description
-  startDate
-  endDate
-  createdDate
-  lastModifiedDate
-  eventStatus
-  ticketTypes{
-    id
-    price
-    title
-  }
+input EventStatusOperationFilterInput {
+  eq: EventStatus @cost(weight: "10")
+  neq: EventStatus @cost(weight: "10")
+  in: [EventStatus!] @cost(weight: "10")
+  nin: [EventStatus!] @cost(weight: "10")
 }
 
-type TicketType {
-  id : ID!
-  price : Float!
-  title : String!
-  description : String
-  lastModifiedDate : String
-  createdDate : String
+input FloatOperationFilterInput {
+  eq: Float @cost(weight: "10")
+  neq: Float @cost(weight: "10")
+  in: [Float] @cost(weight: "10")
+  nin: [Float] @cost(weight: "10")
+  gt: Float @cost(weight: "10")
+  ngt: Float @cost(weight: "10")
+  gte: Float @cost(weight: "10")
+  ngte: Float @cost(weight: "10")
+  lt: Float @cost(weight: "10")
+  nlt: Float @cost(weight: "10")
+  lte: Float @cost(weight: "10")
+  nlte: Float @cost(weight: "10")
+}
+
+input IdOperationFilterInput {
+  eq: ID @cost(weight: "10")
+  neq: ID @cost(weight: "10")
+  in: [ID] @cost(weight: "10")
+  nin: [ID] @cost(weight: "10")
+}
+
+input IntOperationFilterInput {
+  eq: Int @cost(weight: "10")
+  neq: Int @cost(weight: "10")
+  in: [Int] @cost(weight: "10")
+  nin: [Int] @cost(weight: "10")
+  gt: Int @cost(weight: "10")
+  ngt: Int @cost(weight: "10")
+  gte: Int @cost(weight: "10")
+  ngte: Int @cost(weight: "10")
+  lt: Int @cost(weight: "10")
+  nlt: Int @cost(weight: "10")
+  lte: Int @cost(weight: "10")
+  nlte: Int @cost(weight: "10")
+}
+
+input ListFilterInputTypeOfTicketTypeFilterInput {
+  all: TicketTypeFilterInput @cost(weight: "10")
+  none: TicketTypeFilterInput @cost(weight: "10")
+  some: TicketTypeFilterInput @cost(weight: "10")
+  any: Boolean @cost(weight: "10")
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String @cost(weight: "10")
+  neq: String @cost(weight: "10")
+  contains: String @cost(weight: "20")
+  ncontains: String @cost(weight: "20")
+  in: [String] @cost(weight: "10")
+  nin: [String] @cost(weight: "10")
+  startsWith: String @cost(weight: "20")
+  nstartsWith: String @cost(weight: "20")
+  endsWith: String @cost(weight: "20")
+  nendsWith: String @cost(weight: "20")
+}
+
+input TicketEntityFilterInput {
+  and: [TicketEntityFilterInput!]
+  or: [TicketEntityFilterInput!]
+  id: IdOperationFilterInput
+  eventId: StringOperationFilterInput
+  ticketTypeId: StringOperationFilterInput
+  order: StringOperationFilterInput
+  lastModifiedDate: DateTimeOperationFilterInput
+  createdDate: DateTimeOperationFilterInput
+  status: TicketStatusOperationFilterInput
+}
+
+input TicketEntityInput {
+  id: ID
+  eventId: String!
+  ticketTypeId: String!
+  order: String!
+  lastModifiedDate: DateTime
+  createdDate: DateTime
+  status: TicketStatus
+}
+
+input TicketStatusOperationFilterInput {
+  eq: TicketStatus @cost(weight: "10")
+  neq: TicketStatus @cost(weight: "10")
+  in: [TicketStatus!] @cost(weight: "10")
+  nin: [TicketStatus!] @cost(weight: "10")
+}
+
+input TicketTypeFilterInput {
+  and: [TicketTypeFilterInput!]
+  or: [TicketTypeFilterInput!]
+  id: StringOperationFilterInput
+  price: FloatOperationFilterInput
+  title: StringOperationFilterInput
+  description: StringOperationFilterInput
+  lastModifiedDate: DateTimeOperationFilterInput
+  createdDate: DateTimeOperationFilterInput
+  ticketsSold: IntOperationFilterInput
 }
 
 input TicketTypeInput {
-  id : String
-  price : Float!
-  title : String!
-  description : String
-  lastModifiedDate : String
-  createdDate : String
-}
-
-type TicketEntity{
   id: ID
-  eventId: String!
-  ticketTypeId : String!
-  order : String
-  lastModifiedDate : String
-  createdDate : String
+  price: Float!
+  title: String!
+  description: String!
+  lastModifiedDate: DateTime
+  createdDate: DateTime
 }
 
-input TicketEntityInput{
-  id: String
-  eventId: String!
-  ticketTypeId : String!
-  order : String!
-  lastModifiedDate : String
-  createdDate : String
-}
-
-type UserEntity{
-  id : ID
-  ticketsPurchased : [TicketEntity]
-  lastModifiedDate : String
-  createdDate : String
-}
-
-fragment FullTicketType on TicketType{
-  id
-  price
-  title
-  description
-  lastModifiedDate
-  createdDate
-}
-
-type Mutation {
-  createEvent(input: EventInput!): Event!
-  updateEvent(eventId: String!, input: EventInput!): Event!
-  createTicketType(eventId: String!, input: TicketTypeInput!) : TicketType!
-  updateTicketType(eventId: String!,typeId: String!, input: TicketTypeInput!) : TicketType!
-  createTicketEntity(userId: String!, input : TicketEntityInput!): TicketEntity!
-  updateTicketEntity(userId: String!, ticketId: String!, input : TicketEntityInput!): TicketEntity!
-}
-
-type Query {
-  eventsByOwnerId(ownerId: String!): [Event!]!
-  eventById(id: String!): Event
-  allEvents: [Event!]!
-  ticketsByEventId(eventId : String!) : TicketType!
-  ticketsByEventIdAndTicketId(eventId : String!, typeId : String!) : TicketType
-  userById(id : String!) : UserEntity
-}
-
-
-enum EventStatus{
+enum EventStatus {
   SCHEDULED
   IN_PROGRESS
   TERMINATED
   CANCELLED
 }
+
+enum TicketStatus {
+  CREATED
+  CANCELED
+  REFUNDED
+  SOLD
+}
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost(
+  "The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc."
+  weight: String!
+) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy(
+  "The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types."
+  url: String!
+) on SCALAR
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https://www.graphql-scalars.com/date-time")

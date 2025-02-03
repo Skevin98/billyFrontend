@@ -1,0 +1,26 @@
+<h3>Mon profil</h3>
+<div>
+  <h5>Mes Billy</h5>
+  <table>
+    <thead>
+    <tr>
+      <th>N°</th>
+      <th>Ordre</th>
+      <th>Evènement</th>
+      <th>Type de Billy</th>
+      <th>Prix</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (ticket of ticketsToDisplay; track $index){
+        <tr>
+          <td>{{$index + 1}}</td>
+          <td>{{ticket.order}}</td>
+          <td>{{ticket.eventName}}</td>
+          <td>{{ticket.ticketTypeTitle}}</td>
+          <td>{{ticket.price}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
