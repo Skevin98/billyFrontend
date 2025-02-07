@@ -81,5 +81,6 @@ export enum TicketStatus{
   CREATED = "CREATED",
   CANCELED = "CANCELED",
   REFUNDED = "REFUNDED",
-  SOLD = "SOLD"
+  SOLD = "SOLD",
+  CHECKED = "CHECKED"
 }

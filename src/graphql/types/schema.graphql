@@ -37,14 +37,14 @@ type Mutation {
 
 type Query {
   eventsByOwnerId(ownerId: String!): [Event!]! @cost(weight: "10")
-  eventById(id: String!, where: EventFilterInput @cost(weight: "10")): Event
-  @cost(weight: "10")
+  eventById(id: String!): Event @cost(weight: "10")
   allEvents(where: EventFilterInput @cost(weight: "10")): [Event!]!
   @cost(weight: "10")
   ticketsByEventId(eventId: String!): [TicketType!]! @cost(weight: "10")
   ticketsByEventIdAndTicketId(eventId: String!, typeId: String!): TicketType
   @cost(weight: "10")
   userById(id: String!): UserEntity @cost(weight: "10")
+  usersTicketsByEventId(eventId: String!): [UserEntity!]! @cost(weight: "10")
 }
 
 type TicketEntity {
@@ -246,6 +246,7 @@ enum TicketStatus {
   CANCELED
   REFUNDED
   SOLD
+  CHECKED
 }
 
 "The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."

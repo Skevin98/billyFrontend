@@ -20,6 +20,7 @@ export class ApolloService {
     });
   }
 
+  // TODO To refactor dependent services with client.watchQuery
   getClient() : ApolloClient<any> {
     return this.client;
   }

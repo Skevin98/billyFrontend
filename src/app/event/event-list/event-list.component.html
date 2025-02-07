@@ -10,7 +10,7 @@
     <th>Date de début</th>
     <th>Date de fin</th>
     <th>Statut</th>
-    <th>Détails</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -22,7 +22,8 @@
         <td> {{ event.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
         <td> {{ event.eventStatus }}</td>
         <td>
-          <button type="button" [routerLink]="['upsert', event.id]">Voir plus</button>
+          <button type="button" [routerLink]="['upsert', event.id]">Modifier</button>
+          <button type="button" [routerLink]="[event.id]" [state]="{event : event}">Details</button>
         </td>
       </tr>
     }
