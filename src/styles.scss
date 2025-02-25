@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "scss/base/reset";
+@import "scss/abstract/variables";
+@import "scss/component/button";
+@import "scss/abstract/mixins";

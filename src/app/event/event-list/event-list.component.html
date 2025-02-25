@@ -1,31 +1,34 @@
-<h3>Mes évènements</h3>
 
-<button type="button" routerLink="upsert">Créer un évènement</button>
+<section>
+  <h3>Mes évènements</h3>
 
-<table>
-  <thead>
-  <tr>
-    <th>N°</th>
-    <th>Nom</th>
-    <th>Date de début</th>
-    <th>Date de fin</th>
-    <th>Statut</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-    @for (event of eventList; track $index) {
-      <tr>
-        <td> {{ $index + 1 }}</td>
-        <td> {{ event.name }}</td>
-        <td> {{ event.startDate | date:'dd/MM/yyyy HH:mm' }}</td>
-        <td> {{ event.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
-        <td> {{ event.eventStatus }}</td>
-        <td>
-          <button type="button" [routerLink]="['upsert', event.id]">Modifier</button>
-          <button type="button" [routerLink]="[event.id]" [state]="{event : event}">Details</button>
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
+  <button class="button button--primary" type="button" routerLink="upsert">Créer un évènement</button>
+
+  <table>
+    <thead>
+    <tr>
+      <th>N°</th>
+      <th>Nom</th>
+      <th>Date de début</th>
+      <th>Date de fin</th>
+      <th>Statut</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (event of eventList; track $index) {
+        <tr>
+          <td> {{ $index + 1 }}</td>
+          <td> {{ event.name }}</td>
+          <td> {{ event.startDate | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td> {{ event.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+          <td> {{ event.eventStatus }}</td>
+          <td>
+            <button class="button button--primary" type="button" [routerLink]="['upsert', event.id]">Modifier</button>
+            <button class="button button--secondary" type="button" [routerLink]="[event.id]" [state]="{event : event}">Details</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,16 @@
+@import "../abstract/mixins";
+
+.button {
+  border: 1px solid $color-grey-5;
+  padding: 8px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px black;
+  color: $color-grey-5;
+  &--primary{
+    @include bg-col($color-primary-100) ;
+  }
+  &--secondary{
+    @include bg-col($color-cyan-accent-1) ;
+  }
+
+}
