@@ -4,7 +4,7 @@
   border: 1px solid $color-grey-5;
   padding: 8px 20px;
   border-radius: 6px;
-  box-shadow: 0 4px black;
+  box-shadow: $shadow-1;
   color: $color-grey-5;
   &--primary{
     @include bg-col($color-primary-100) ;
