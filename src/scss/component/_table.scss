@@ -1,7 +1,6 @@
 
 
 .admin-table{
-  margin-top: $spacing-5;
   width: 100%;
   text-align: center;
   border-collapse:separate;
@@ -11,5 +10,17 @@
     padding-bottom: $spacing-3;
     border-bottom: 1px solid $color-grey-5;
 
+  }
+}
+
+.ticket-type-table{
+  width: 100%;
+  text-align: center;
+  border-collapse:separate;
+  border-spacing:0 $spacing-3;
+
+  td, th {
+    padding-bottom: $spacing-3;
+    border-bottom: 1px solid $color-grey-5;
   }
 }

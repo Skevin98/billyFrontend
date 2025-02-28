@@ -1,6 +1,6 @@
-<h4>Types de tickets</h4>
+
 @if (ticketTypes){
-  <table>
+  <table class="ticket-type-table">
     <thead>
     <tr>
       <th>
@@ -20,7 +20,7 @@
     <tfoot>
     <tr>
       <td colspan="4">
-        <button [routerLink]="['tickets']" >Ajouter</button>
+        <button class="button button--primary" [routerLink]="['tickets']" >Ajouter</button>
       </td>
     </tr>
     </tfoot>
@@ -30,9 +30,9 @@
           <td> {{$index + 1}} </td>
           <td> {{type.title}} </td>
           <td> {{type.price}} </td>
-          <td>
-            <button (click)="goToUpsertTicketType(type)">Modifier</button>
-            <button>Supprimer</button>
+          <td class="button-container">
+            <button class="button button--primary" (click)="goToUpsertTicketType(type)">Modifier</button>
+            <button class="button button--secondary">Supprimer</button>
           </td>
         </tr>
       }
@@ -40,6 +40,6 @@
   </table>
 } @else {
   <p>Aucun ticket configuré pour cet évènement</p>
-  <button [routerLink]="['tickets']">Ajouter un type</button>
+  <button class="button button--primary" [routerLink]="['tickets']">Ajouter un type</button>
 }
 

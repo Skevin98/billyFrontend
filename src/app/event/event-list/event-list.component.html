@@ -1,6 +1,6 @@
 
 <section >
-  <fieldset class="event-list">
+  <fieldset class="section-border">
     <legend>Mes évènements</legend>
 
     <button class="button button--primary" type="button" routerLink="upsert">Créer un évènement</button>
@@ -25,7 +25,7 @@
             <td> {{ event.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td> {{ event.eventStatus }}</td>
             <td>
-              <div style="display: flex; flex-direction: row; justify-content: center; gap: 5px" >
+              <div class="button-container" >
                 <button class="button button--primary" type="button" [routerLink]="['upsert', event.id]">Modifier</button>
                 <button class="button button--secondary" type="button" [routerLink]="[event.id]" [state]="{event : event}">Details</button>
               </div>
