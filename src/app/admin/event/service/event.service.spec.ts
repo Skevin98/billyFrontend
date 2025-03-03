@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { EventService } from './event.service';
-import { Event } from '../../models/models';
+import { Event } from '../../../models/models';
 import {gql} from '@apollo/client/core';
 
 describe('EventService', () => {

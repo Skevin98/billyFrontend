@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Event, TicketEntity, TicketStatus, TicketType, UserEntity} from "../../models/models";
+import {Event, TicketEntity, TicketStatus, TicketType, UserEntity} from "../../../models/models";
 import {gql} from '@apollo/client/core';
 import {EventService} from '../service/event.service';
-import {checkGraphQLError} from '../../utils/functions';
+import {checkGraphQLError} from '../../../utils/functions';
 import {DatePipe} from '@angular/common';
 import {Title} from '@angular/platform-browser';
-import {environment} from '../../../environments/environment';
-import {TicketEntityService} from '../../front-office/ticketEntity/service/ticket-entity.service';
+import {environment} from '../../../../environments/environment';
+import {TicketEntityService} from '../../../front-office/ticketEntity/service/ticket-entity.service';
 import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 @Component({
   selector: 'app-event-details',
@@ -119,7 +119,7 @@ export class EventDetailsComponent implements OnInit{
 
   configureTicketsOptions(tickets : any[]){
     tickets.forEach(value => {
-      let options : { status : TicketStatus, label : string }[] = [];
+      let options : { status : TicketStatus, label : string, class : string }[] = [];
       switch (value.ticketsPurchased[0].status){
         case TicketStatus.CREATED:
           break;
@@ -129,15 +129,15 @@ export class EventDetailsComponent implements OnInit{
           break;
         case TicketStatus.SOLD:
           options.push(
-            {status : TicketStatus.REFUNDED, label : 'Rembourser'},
-            {status : TicketStatus.CHECKED, label : 'Contrôler'},
-            {status : TicketStatus.CANCELED, label : 'Annuler'});
+            {status : TicketStatus.REFUNDED, label : 'Rembourser', class : 'button button--primary'},
+            {status : TicketStatus.CHECKED, label : 'Contrôler', class : 'button button--secondary'},
+            {status : TicketStatus.CANCELED, label : 'Annuler', class : 'button'});
           break;
         case TicketStatus.CHECKED:
           options.push(
-            {status : TicketStatus.REFUNDED, label : 'Rembourser'},
-            {status : TicketStatus.CHECKED, label : 'Contrôler'},
-            {status : TicketStatus.CANCELED, label : 'Annuler'},
+            {status : TicketStatus.REFUNDED, label : 'Rembourser',class : 'button button--primary'},
+            {status : TicketStatus.CHECKED, label : 'Contrôler', class : 'button button--secondary'},
+            {status : TicketStatus.CANCELED, label : 'Annuler', class : 'button'},
           )
           break;
       }

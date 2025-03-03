@@ -1,0 +1,42 @@
+<h3>{{event.name}}</h3>
+
+<section>
+  <fieldset class="section-border">
+    <legend>Tickets vendus</legend>
+    <table class="admin-table">
+      <thead>
+      <tr>
+        <th>N°</th>
+        <th>Identifiant</th>
+        <th>Type</th>
+        <th>Date d'achat</th>
+        <th>Derniere date de modification</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (userTicket of tickets; track $index) {
+          <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ userTicket.ticketsPurchased[0].order }}</td>
+            <td>{{ userTicket.ticketTypeTitle }}</td>
+            <td>{{ userTicket.ticketsPurchased[0].createdDate | date }}</td>
+            <td>{{ userTicket.ticketsPurchased[0].lastModifiedDate | date }}</td>
+            <td>{{ userTicket.ticketsPurchased[0].status }}</td>
+            <td>
+              <div class="button-container">
+                @for (option of userTicket.options; track $index){
+                  <button type="button" [class]="option.class"
+                          (click)="updateTicket(userTicket,option?.status)">{{ option?.label }}</button>
+                }
+              </div>
+
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </fieldset>
+
+</section>

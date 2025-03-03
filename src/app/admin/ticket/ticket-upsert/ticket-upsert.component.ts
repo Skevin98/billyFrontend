@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {gql} from '@apollo/client/core';
-import {EventInput, TicketType} from '../../models/models';
+import {EventInput, TicketType} from '../../../models/models';
 import {TicketTypeService} from '../service/ticket-type.service';
 
 @Component({

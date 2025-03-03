@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 
 import {EventService} from '../service/event.service';
-import {Event, EventInput, EventStatus} from '../../models/models';
+import {Event, EventInput, EventStatus} from '../../../models/models';
 import {gql} from '@apollo/client/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {TicketListComponent} from '../../ticket/ticket-list/ticket-list.component';
@@ -70,7 +70,7 @@ export class EventUpsertComponent implements OnInit {
     description: new FormControl('', [Validators.required]),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl(''),
-    ownerId: new FormControl('angular'),
+    ownerId: new FormControl('owner'),
     eventStatus : new FormControl(EventStatus.SCHEDULED)
   })
 
@@ -87,6 +87,7 @@ export class EventUpsertComponent implements OnInit {
     //   this.resetEventForm();
     //
     // } else {
+    if (id)
       this.getEventById(id);
     // }
   }

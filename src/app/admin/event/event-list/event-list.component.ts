@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EventService} from '../service/event.service';
 import {gql} from '@apollo/client/core';
 import {DocumentNode} from '@apollo/client';
-import {Event} from '../../models/models';
+import {Event} from '../../../models/models';
 import {DatePipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
 

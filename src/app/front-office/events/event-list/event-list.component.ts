@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Event} from '../../../models/models';
 import {gql} from '@apollo/client/core';
-import {EventService} from '../../../event/service/event.service';
+import {EventService} from '../../../admin/event/service/event.service';
 import {DocumentNode} from '@apollo/client';
 import {DatePipe} from '@angular/common';
 import {RouterLink} from '@angular/router';

@@ -1,7 +1,7 @@
 import {inject} from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import {EventService} from '../service/event.service';
-import {Event} from '../../models/models';
+import {Event} from '../../../models/models';
 import {ApolloQueryResult, gql} from '@apollo/client/core';
 import {Observable} from 'rxjs';
 

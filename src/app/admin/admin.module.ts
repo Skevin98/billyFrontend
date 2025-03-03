@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {EventListComponent} from './event-list/event-list.component';
-import {EventUpsertComponent} from './event-upsert/event-upsert.component';
+import {EventListComponent} from './event/event-list/event-list.component';
+import {EventUpsertComponent} from './event/event-upsert/event-upsert.component';
 import {RouterModule} from '@angular/router';
-import {eventRoutes} from './event.routes';
+import {eventRoutes} from './event/event.routes';
+import {adminRoutes} from './admin.routes';
 
 
 @NgModule({
@@ -12,11 +13,11 @@ import {eventRoutes} from './event.routes';
     CommonModule,
     EventListComponent,
     EventUpsertComponent,
-    RouterModule.forChild(eventRoutes),
+    RouterModule.forChild(adminRoutes),
   ],
   exports: [
     EventListComponent,
     EventUpsertComponent
   ]
 })
-export class EventModule { }
+export class AdminModule { }

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {ApolloService} from '../../services/apollo.service';
+import {ApolloService} from '../../../services/apollo.service';
 import {ApolloClient, DocumentNode, gql} from '@apollo/client';
 import {from} from 'rxjs';
 
-import {Event} from '../../models/models';
+import {Event} from '../../../models/models';
 import {query} from '@angular/animations';
 
 @Injectable({

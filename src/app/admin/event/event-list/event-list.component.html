@@ -27,7 +27,7 @@
             <td>
               <div class="button-container" >
                 <button class="button button--primary" type="button" [routerLink]="['upsert', event.id]">Modifier</button>
-                <button class="button button--secondary" type="button" [routerLink]="[event.id]" [state]="{event : event}">Details</button>
+                <button class="button button--secondary" type="button" [routerLink]="['details',event.id]" [state]="{event : event}">Details</button>
               </div>
             </td>
           </tr>

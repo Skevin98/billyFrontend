@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ApolloService} from '../../services/apollo.service';
+import {ApolloService} from '../../../services/apollo.service';
 import {ApolloClient} from '@apollo/client/core';
 import {DocumentNode} from '@apollo/client';
 import {from} from 'rxjs';
