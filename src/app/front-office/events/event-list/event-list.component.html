@@ -1,6 +1,23 @@
-<h3>Mes évènements</h3>
+<h3>Les évènements en cours</h3>
 
-<button type="button" routerLink="upsert">Les évènements en cours</button>
+<section class="event-list">
+  @for (event of eventList; track event.id) {
+    <div class="event-card">
+      <div class="event-card__img">image</div>
+      <div class="event-card__label">
+        <span>{{ event.name }}</span>
+        <span>Location</span>
+        <span>Du {{event.startDate | date:'dd/MM/yyyy HH:mm'}} au {{event.endDate | date:'dd/MM/yyyy HH:mm'}}</span>
+        <p>{{event.eventStatus}}</p>
+      </div>
+      <div class="event-card__ticket">
+        tickets
+      </div>
+    </div>
+  }
+
+</section>
+
 
 <table>
   <thead>
