@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {TicketEntityInput} from '../../../models/models';
+import {TicketEntityInput, TicketType} from '../../../models/models';
 import {TicketEntityService} from '../service/ticket-entity.service';
 import {gql} from '@apollo/client/core';
 
@@ -17,6 +17,7 @@ import {gql} from '@apollo/client/core';
 })
 export class TicketCreateComponent implements OnInit {
 
+  type? : TicketType;
   eventId: string = "";
   typeId: string = "";
   userId: string = "6787f20c9a1a3e6163533ff3";
@@ -37,12 +38,16 @@ export class TicketCreateComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router,
               private ticketService: TicketEntityService) {
+    this.type = this.router.getCurrentNavigation()?.extras?.state?.['type'];
+    console.log(this.type);
 
   }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.params["eventId"];
     this.typeId = this.route.snapshot.params["typeId"];
+    var type = this.router.getCurrentNavigation()?.extras?.state?.['type'];
+    console.log(type);
   }
 
   onCreateTicket() {

@@ -2,4 +2,29 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: $spacing-2;
+  margin-bottom: $spacing-4;
+}
+
+.event-info {
+  &__img {
+
+  }
+
+  &__label {
+    height: 125px;
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 2fr 0.5fr;
+    justify-content: center;
+    align-items: center;
+
+  }
+}
+
+.ticket-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+  flex-wrap: wrap;
+  padding-bottom: $spacing-5;
+
 }

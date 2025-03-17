@@ -1,7 +1,19 @@
-<h3>Réservez votre place</h3>
-<div>
-  <button (click)="onCreateTicket()">Réserver mon Billy!</button>
-</div>
-<div>
-  <button routerLink="/">Annuler</button>
-</div>
+
+<section class="ticket-booking">
+  <div class="event-ticket">
+    <div class="event-ticket__img"></div>
+    <div class="event-ticket__info">
+      <span> {{ type?.title }} </span>
+      <span> {{ type?.description }} </span>
+      <span> {{ type?.price }} </span>
+    </div>
+    <div>
+      <button class="button button--primary" (click)="onCreateTicket()">Réserver mon Billy!</button>
+    </div>
+    <div>
+      <button class="button" routerLink="/">Annuler</button>
+    </div>
+  </div>
+
+</section>
+

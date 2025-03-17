@@ -3,56 +3,42 @@
 <section class="event-list">
   @for (event of eventList; track event.id) {
     <div class="event-card">
-      <div class="event-card__img">image</div>
-      <div class="event-card__label">
-        <span>{{ event.name }}</span>
-        <span>Location</span>
-        <span>Du {{event.startDate | date:'dd/MM/yyyy HH:mm'}} au {{event.endDate | date:'dd/MM/yyyy HH:mm'}}</span>
-        <p>{{event.eventStatus}}</p>
+
+      <div class="event-info">
+        <div class="event-info__img">image</div>
+        <div class="event-info__label">
+          <span>{{ event.name }}</span>
+          <span>Location</span>
+          <span>Du {{event.startDate | date:'dd/MM/yyyy HH:mm'}} au {{event.endDate | date:'dd/MM/yyyy HH:mm'}}</span>
+          <p><strong>{{event.eventStatus}}</strong></p>
+        </div>
       </div>
-      <div class="event-card__ticket">
-        tickets
+
+
+
+      <div class="ticket-container">
+        @if (event.ticketTypes?.length) {
+          @for (type of event.ticketTypes; track type.id){
+            <div class="event-ticket">
+              <div class="event-ticket__img"></div>
+              <span class="event-ticket__title">{{ type.title }}</span>
+              <span class="event-ticket__price">{{ type.price }}</span>
+              <span>
+                      <button class="button" type="button" [routerLink]="['ticket', event.id,'type', type.id]"
+                              [state]="{type : type}"
+                      >Billy!</button>
+                    </span>
+            </div>
+
+          }
+        } @else {
+          <p>Pas de Billy configurés pour cet évènement</p>
+        }
+
       </div>
+
     </div>
   }
 
 </section>
 
-
-<table>
-  <thead>
-  <tr>
-    <th>N°</th>
-    <th>Nom</th>
-    <th>Date de début</th>
-    <th>Date de fin</th>
-    <th>Statut</th>
-    <th>Détails</th>
-  </tr>
-  </thead>
-  <tbody>
-    @for (event of eventList; track event.id) {
-      <tr>
-        <td> {{ $index + 1 }}</td>
-        <td> {{ event.name }}</td>
-        <td> {{ event.startDate | date:'dd/MM/yyyy HH:mm' }}</td>
-        <td> {{ event.endDate | date: 'dd/MM/yyyy HH:mm' }}</td>
-        <td> {{ event.eventStatus }}</td>
-        <td>
-
-        </td>
-      </tr>
-      @for (type of event.ticketTypes; track type.id){
-        <tr>
-          <td></td>
-          <td>{{ $index + 1 }}</td>
-          <td>{{ type.title }}</td>
-          <td>{{ type.price }}</td>
-          <td>
-            <button type="button" [routerLink]="['ticket', event.id,'type', type.id]">Billy!</button>
-          </td>
-        </tr>
-      }
-    }
-  </tbody>
-</table>
